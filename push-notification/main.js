@@ -128,24 +128,34 @@ function subscribe() {
 // in Chrome 44 by concatenating the subscription Id
 // to the subscription endpoint
 function sendSubscriptionToServer (pushSubscription) {
-    console.debug('bbbbbbbbb');
+
+    var endpoint;
+
     // Make sure we only mess with GCM
     if (pushSubscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') !== 0)  {
-        console.debug('endpoint: ', mergedEndpoint);
-        return pushSubscription.endpoint;
+        endpoint = pushSubscription.endpoint;
+    
+    } else {
+
+        var mergedEndpoint = pushSubscription.endpoint;
+        // Chrome 42 + 43 will not have the subscriptionId attached
+        // to the endpoint
+        if (pushSubscription.subscriptionId && pushSubscription.endpoint.indexOf(pushSubscription.subscriptionId) === -1) {
+            // Handle version 42 where you have separate subId and Endpoint
+            mergedEndpoint = pushSubscription.endpoint + '/' + pushSubscription.subscriptionId;
+        }
+
+        endpoint = mergedEndpoint;
     }
 
-    var mergedEndpoint = pushSubscription.endpoint;
-    // Chrome 42 + 43 will not have the subscriptionId attached
-    // to the endpoint
-    if (pushSubscription.subscriptionId && pushSubscription.endpoint.indexOf(pushSubscription.subscriptionId) === -1) {
-        // Handle version 42 where you have separate subId and Endpoint
-        mergedEndpoint = pushSubscription.endpoint + '/' + pushSubscription.subscriptionId;
-    }
+    var fragments = endpoint.split('/');
+    var subscriptionId = fragments[fragments.length - 1];
+    console.log('endpoint: ' + subscriptionId);
+    var p = document.createElement('p');
+    p.textContent = subscriptionId;
+    document.body.appendChild(p);
 
-    console.debug('endpoint: ', mergedEndpoint);
-
-    return mergedEndpoint;
+    return endpoint;
 }
 
 
