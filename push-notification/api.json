@@ -1,0 +1,8 @@
+{
+    "notification": {
+        "title": "hello",
+        "message": "This message is sent by server.",
+        "icon": "./images/icon-192x192.png",
+        "notificationTag": "simple-push-demo-notification-tag"
+    }
+}
