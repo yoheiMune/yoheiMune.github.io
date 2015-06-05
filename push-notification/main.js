@@ -1,3 +1,6 @@
+// http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web
+// http://qiita.com/tomoyukilabs/items/8fffb4280c1914b6aa3d
+
 var isPushEnabled = false;
 
 window.addEventListener('load', function () {
