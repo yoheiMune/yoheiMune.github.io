@@ -1,0 +1,3 @@
+[submodule "polymer-playground"]
+	path = polymer-playground
+	url = https://github.com/yoheiMune/polymer-playground
